@@ -3,6 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
+	"math"
+	"math/rand"
 	"os"
 
 	"dagger.io/dagger"
@@ -12,44 +14,40 @@ func main() {
 	ctx := context.Background()
 
 	// initialize Dagger client
-	client, err := dagger.Connect(ctx, dagger.WithLogOutput(os.Stdout))
+	client, err := dagger.Connect(ctx, dagger.WithLogOutput(os.Stderr))
 
 	if err != nil {
 		panic(err)
 	}
 	defer client.Close()
 
-	// use a node:16-slim container
-	// mount the source code directory on the host
-	// at /src in the container
 	source := client.Container().
-		From("node:16-slim").
+		From("node:16").
 		WithDirectory("/src", client.Host().Directory("."), dagger.ContainerWithDirectoryOpts{
 			Exclude: []string{"node_modules/", "ci/"},
 		})
 
-	// set the working directory in the container
-	// install application dependencies
 	runner := source.WithWorkdir("/src").
 		WithExec([]string{"npm", "install"})
 
-	// run application tests
 	test := runner.WithExec([]string{"npm", "test", "--", "--watchAll=false"})
 
-	// build application
-	// write the build output to the host
-	buildDir := test.WithExec([]string{"npm", "run", "build"}).
-		Directory("./build")
+	_, err = test.WithExec([]string{"npm", "run", "build"}).
+		Directory("./build").
+		Export(ctx, "./build")
 
-	_, err = buildDir.Export(ctx, "./build")
 	if err != nil {
 		panic(err)
 	}
 
-	e, err := buildDir.Entries(ctx)
+	ref, err := client.Container().
+		From("nginx:1.23-alpine").
+		WithDirectory("/usr/share/nginx/html", client.Host().Directory("./build")).
+		Publish(ctx, fmt.Sprintf("ttl.sh/hello-dagger-%.0f", math.Floor(rand.Float64()*10000000)))
+		//#nosec
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Printf("build dir contents:\n %s\n", e)
+	fmt.Printf("Published image to: %s\n", ref)
 }
