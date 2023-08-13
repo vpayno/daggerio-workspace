@@ -8,7 +8,7 @@ A place for me to learn and experiment using Dagger for CI/CD jobs.
 
 [ ] install dagger cli for shell
 [x] install dagger sdk for go
-[ ] install dagger sdk for python
+[x] install dagger sdk for python
 [ ] add ci workflow to lint markdown - github
 [ ] add ci workflow to lint markdown - gitlab
 
