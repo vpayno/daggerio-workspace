@@ -55,6 +55,7 @@
     "yallist": "^4.0.0"
   },
   "scripts": {
+    "build": "echo \"Pretending to build an nodejs application. Success!\" && { pwd && ls && mkdir -pv build && touch build/helloworld.txt && exit 0; }",
     "test": "echo \"Pretending to test an nodejs application! Success!\" && exit 0"
   },
   "repository": {

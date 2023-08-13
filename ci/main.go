@@ -13,6 +13,7 @@ func main() {
 
 	// initialize Dagger client
 	client, err := dagger.Connect(ctx, dagger.WithLogOutput(os.Stdout))
+
 	if err != nil {
 		panic(err)
 	}
@@ -33,11 +34,22 @@ func main() {
 		WithExec([]string{"npm", "install"})
 
 	// run application tests
-	out, err := runner.WithExec([]string{"npm", "test", "--", "--watchAll=false"}).
-		Stderr(ctx)
+	test := runner.WithExec([]string{"npm", "test", "--", "--watchAll=false"})
+
+	// build application
+	// write the build output to the host
+	buildDir := test.WithExec([]string{"npm", "run", "build"}).
+		Directory("./build")
+
+	_, err = buildDir.Export(ctx, "./build")
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println(out)
+	e, err := buildDir.Entries(ctx)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Printf("build dir contents:\n %s\n", e)
 }
