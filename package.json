@@ -1,5 +1,69 @@
 {
   "devDependencies": {
     "@dagger.io/dagger": "^0.8.2"
-  }
+  },
+  "name": "dagger-cicd-workspace",
+  "description": "Dagger CI/CD Workspace",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "adm-zip": "^0.5.10",
+    "asynckit": "^0.4.0",
+    "chownr": "^2.0.0",
+    "combined-stream": "^1.0.8",
+    "cross-fetch": "^3.1.8",
+    "cross-spawn": "^7.0.3",
+    "data-uri-to-buffer": "^4.0.1",
+    "delayed-stream": "^1.0.0",
+    "env-paths": "^3.0.0",
+    "execa": "^7.2.0",
+    "fetch-blob": "^3.2.0",
+    "form-data": "^3.0.1",
+    "formdata-polyfill": "^4.0.10",
+    "fs-minipass": "^2.1.0",
+    "get-stream": "^6.0.1",
+    "graphql": "^16.7.1",
+    "graphql-request": "^6.1.0",
+    "graphql-tag": "^2.12.6",
+    "human-signals": "^4.3.1",
+    "is-stream": "^3.0.0",
+    "isexe": "^2.0.0",
+    "merge-stream": "^2.0.0",
+    "mime-db": "^1.52.0",
+    "mime-types": "^2.1.35",
+    "mimic-fn": "^4.0.0",
+    "minipass": "^5.0.0",
+    "minizlib": "^2.1.2",
+    "mkdirp": "^1.0.4",
+    "node-color-log": "^10.0.2",
+    "node-domexception": "^1.0.0",
+    "node-fetch": "^3.3.2",
+    "npm-run-path": "^5.1.0",
+    "onetime": "^6.0.0",
+    "path-key": "^3.1.1",
+    "shebang-command": "^2.0.0",
+    "shebang-regex": "^3.0.0",
+    "signal-exit": "^3.0.7",
+    "strip-final-newline": "^3.0.0",
+    "tar": "^6.1.15",
+    "tr46": "^0.0.3",
+    "tslib": "^2.6.1",
+    "web-streams-polyfill": "^3.2.1",
+    "webidl-conversions": "^3.0.1",
+    "whatwg-url": "^5.0.0",
+    "which": "^2.0.2",
+    "yallist": "^4.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Pretending to test an nodejs application! Success!\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/vpayno/daggerio-workspace"
+  },
+  "keywords": [
+    "dagger"
+  ],
+  "author": "Victor Payno",
+  "license": "MIT"
 }

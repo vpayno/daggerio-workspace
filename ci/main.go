@@ -18,16 +18,26 @@ func main() {
 	}
 	defer client.Close()
 
-	// use a golang:1.20 container
-	// get version
-	// execute
-	golang := client.Container().From("golang:1.20").WithExec([]string{"go", "version"})
+	// use a node:16-slim container
+	// mount the source code directory on the host
+	// at /src in the container
+	source := client.Container().
+		From("node:16-slim").
+		WithDirectory("/src", client.Host().Directory("."), dagger.ContainerWithDirectoryOpts{
+			Exclude: []string{"node_modules/", "ci/"},
+		})
 
-	version, err := golang.Stdout(ctx)
+	// set the working directory in the container
+	// install application dependencies
+	runner := source.WithWorkdir("/src").
+		WithExec([]string{"npm", "install"})
+
+	// run application tests
+	out, err := runner.WithExec([]string{"npm", "test", "--", "--watchAll=false"}).
+		Stderr(ctx)
 	if err != nil {
 		panic(err)
 	}
 
-	// print output
-	fmt.Println("Hello from Dagger and " + version)
+	fmt.Println(out)
 }
