@@ -6,7 +6,7 @@ A place for me to learn and experiment using Dagger for CI/CD jobs.
 
 ## To Do
 
-[ ] install dagger cli for shell
+[x] install dagger cli for shell
 [x] install dagger sdk for go
 [x] install dagger sdk for nodejs
 [x] install dagger sdk for python
