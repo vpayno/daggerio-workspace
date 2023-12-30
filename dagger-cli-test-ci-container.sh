@@ -26,7 +26,7 @@ SOURCE=$(
 )
 
 JOB_OUTPUT=$(
-	dagger query <<-EOF | jq -r .container.from.withExec.withExec.stdout
+	dagger query <<-EOF | jq -r .container.from.withDirectory.withWorkdir.withExec.withExec.withExec.withExec.withExec.withExec.withExec.withExec.withExec.withExec.stdout
 		{
 		  container {
 		    from(address:"${CI_IMAGE}") {
@@ -61,4 +61,4 @@ JOB_OUTPUT=$(
 	EOF
 )
 
-echo "${JOB_OUTPUT}"
+printf "\nResult: [%s]\n" "${JOB_OUTPUT}"
