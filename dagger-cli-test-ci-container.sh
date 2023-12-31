@@ -39,10 +39,12 @@ JOB_OUTPUT=$(
 		                  withExec(args:["gcc", "--version"]) {
 		                    withExec(args:["clang-16", "--version"]) {
 		                      withExec(args:["llvm-cov-16", "--version"]) {
-		                        withExec(args:["dagger", "version"]) {
-		                          withExec(args:["pwd"]) {
-		                            withExec(args:["ls"]) {
-		                              stdout
+		                        withExec(args:["git", "--version"]) {
+		                          withExec(args:["dagger", "version"]) {
+		                            withExec(args:["pwd"]) {
+		                              withExec(args:["ls"]) {
+		                                stdout
+		                              }
 		                            }
 		                          }
 		                        }
